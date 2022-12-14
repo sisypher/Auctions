@@ -1,0 +1,94 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}Auctions{% endblock %}</title>
+        <!--Link Bootstrap-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        <!--
+            Bootstrap select is used here to solve the problem of multiselect. It enables the options to be in
+            a dropdown menu.
+        -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
+        <!--Link Customized CSS-->
+        <link href="{% static 'auctions/styles.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg bg-light mb-2">
+            <div class="container-fluid mx-5">
+                <a href="{% url 'index' %}" class="navbar-brand">Auctions</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'index' %}">Active Listings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'archive' %}">Archived Listings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'categories' %}">Categories</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'create' %}">Create Listing</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                    {% if user.is_authenticated %}
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <div class="d-inline-flex">
+                                    <div class="pe-1">
+                                        <img style="width: 1.25rem; border-radius: .2rem;" src="{% static 'auctions/images/avatar.png' %}" alt="Avatar">
+                                    </div>
+                                    <div> {{user.username}} </div>
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'watchlist' %}">My Watchlist
+                                        <span class="badge bg-secondary">
+                                            {{ user.watchlist.count }}
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'user_listings' %}">My Listings</a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{% url 'logout' %}">Log Out</a>
+                                </li>
+                            </ul>
+                        </li>  
+                    </ul>            
+                    {% else %}
+                    <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'register' %}">Register</a>
+                            </li>
+                    </ul>
+                    {% endif %}
+                  </div>              
+            </div>
+        </nav>
+        <div class="container-fluid mb-5">
+            {% block body %}
+            {% endblock %}
+        </div>
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js" integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+    </body>
+</html>

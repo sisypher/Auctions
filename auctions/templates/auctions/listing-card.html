@@ -1,0 +1,42 @@
+<div class="card mb-3 mx-4" style="width: 18rem;">
+    <!-- Link The Listing Page For The Card -->
+    <a href="{% url 'listing' listing_id=listing.id %}" class="text-decoration-none stretched-link"></a>
+    <!-- Listing Card -->
+    <img src="{{ listing.image.url }}" class="card-img-top" alt="{{ listing.name }}">
+    <div class="card-body text-center">
+        <h4 class="card-title">
+            <b>{{ listing.name }}</b>
+        </h4>
+        <p class="card-text">
+            {{ listing.description }}
+        </p>
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <b>Starting Bid:</b> 
+            ${{ listing.starting_bid }}
+        </li>
+        <li class="list-group-item">
+            <b>Winning Bid:</b>
+            {{ listing.bids.last }}
+        </li>
+        {% if listing.active %}
+        <li class="list-group-item">
+            <b>Status:</b> 
+            <span class="badge text-bg-success">
+                Open
+            </span>
+        </li>
+        {% else %}
+        <li class="list-group-item">
+            <b>Status:</b> 
+            <span class="badge text-bg-danger">
+                Closed
+            </span>
+        </li>
+        {% endif %}
+        <li class="list-group-item"><b>Category:</b> {{ listing.category }}</li>
+        <li class="list-group-item"><b>Listed By:</b> {{ listing.user }}</li>
+        <li class="list-group-item">Created {{ listing.created_timestamp | date:"M. j, Y, H:iA" }}</li>
+    </ul>
+</div>

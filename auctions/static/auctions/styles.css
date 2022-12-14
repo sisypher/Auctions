@@ -1,0 +1,15 @@
+.card { 
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.placed-bids-section {
+    width:749; 
+    max-height:164px; 
+    overflow-y: auto;
+}

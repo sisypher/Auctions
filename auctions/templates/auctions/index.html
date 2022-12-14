@@ -1,0 +1,21 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div>
+    {% if title == 'Active Listings' %}
+    <h2 class="display-3 text-center">Active Listings</h2>
+    {% elif title == 'Archived Listings' %}
+    <h2 class="display-3 text-center">Archived Listings</h2>
+    {% elif title == 'Watchlist' %}
+    <h2 class="display-3 text-center">My Watchlist</h2>
+    {% else %}
+    <h2 class="display-3 text-center">My Listings</h2>
+    {% endif %} 
+</div>
+<hr>
+<div class="d-flex justify-content-center flex-wrap">
+    {% for listing in listings %}
+    {% include "auctions/listing-card.html" %}
+    {% endfor %}
+</div>
+{% endblock %}

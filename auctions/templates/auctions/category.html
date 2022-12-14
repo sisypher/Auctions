@@ -1,0 +1,22 @@
+{% extends "auctions/layout.html" %}
+
+{% load widget_tweaks %}
+
+{% block body %}
+<div class="mx-5">
+    <form method="GET" action="{% url 'categories' %}">
+        <div class="mb-3">
+            <label for="inputCategory" class="form-label">Category</label>
+            <select id="inputCategory" class="form-select" name="category">
+                <option value="" selected>Choose...</option>
+                {% for category in categories %}
+                    <option value="{{ category }}">{{ category }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <input class="btn btn-primary mb-3" type="submit" value="Filter">
+    </form>
+    {% for listing in queryset %}
+        {% include "auctions/listing-card.html" %}
+    {% endfor %}
+{% endblock %}
